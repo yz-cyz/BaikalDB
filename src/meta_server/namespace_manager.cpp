@@ -126,6 +126,9 @@ void NamespaceManager::modify_namespace(const pb::MetaManagerRequest& request, b
     if (namespace_info.has_region_split_lines()) {
         tmp_info.set_region_split_lines(namespace_info.region_split_lines());
     }
+    if (namespace_info.dists_size() > 0) {
+        tmp_info.mutable_dists()->Swap(const_cast<pb::NameSpaceInfo&>(namespace_info).mutable_dists());
+    }
     tmp_info.set_version(tmp_info.version() + 1);
 
     //持久化新的namespace信息
